@@ -1,0 +1,18 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		<bean 	id="jmsConnectionFactory" 
+				class="org.apache.activemq.ActiveMQConnectionFactory">
+        			<property name="brokerURL" value="tcp://localhost:61616"/>
+    	</bean>
+
+		<bean	id="userServiceListener"
+				class="learn.spring25.jms.mdpojo.consumer.JmsUserServiceImpl" />
+		
+		<bean	class="org.springframework.jms.listener.SimpleMessageListenerContainer">
+					<property name="connectionFactory" ref="jmsConnectionFactory" />
+					<property name="destinationName" value="someQ" />
+					<property name="messageListener" ref="userServiceListener" />
+		</bean>
+</beans>

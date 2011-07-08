@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		
+		<bean 	id="jmsConnectionFactory" 
+				class="org.apache.activemq.ActiveMQConnectionFactory">
+        			<property name="brokerURL" value="tcp://localhost:61616"/>
+    	</bean>
+
+    	<bean 	id="jmsQueue" 
+				class="org.apache.activemq.command.ActiveMQQueue">
+        			<constructor-arg value="someQ"/>
+    	</bean>
+		
+		<bean	id="jmsTemplate"
+				class="org.springframework.jms.core.JmsTemplate">
+					<property name="connectionFactory" ref="jmsConnectionFactory" />
+					<property name="receiveTimeout" value="10000" />
+					<property name="defaultDestination" ref="jmsQueue" /> <!-- Optional -->
+		</bean>
+		
+		<bean	id="UserService"
+				class="learn.spring25.jms.jmstemplate.consumer.JmsUserServiceImpl">
+					<property name="destination" ref="jmsQueue" />
+					<property name="jmsTemplate" ref="jmsTemplate" />
+		</bean>
+</beans>

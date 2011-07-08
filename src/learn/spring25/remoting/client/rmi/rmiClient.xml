@@ -1,0 +1,15 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		<bean 	id = "userClientDao"
+				class = "learn.spring25.WsUserDao" >
+					<property name = "userService" ref = "rmiUserService" />					
+		</bean>
+		
+		<bean	id = "rmiUserService"
+				class = "org.springframework.remoting.rmi.RmiProxyFactoryBean">
+					<property name = "serviceUrl" value = "rmi://localhost:1099/rmiUserService" />
+					<property name = "serviceInterface" value = "learn.spring25.UserService" />
+		</bean>
+		
+</beans>

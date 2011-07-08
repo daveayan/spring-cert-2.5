@@ -1,0 +1,40 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+		
+		<context:load-time-weaver/>
+		
+		<aop:config>
+			<aop:aspect ref="loggingHandler">
+				<aop:before method="printEnterMessage"
+							pointcut="within(*)"/>
+				<aop:after method="printExitMessage"
+							pointcut="within(*)"/>
+			</aop:aspect>
+			<aop:aspect ref="validationHandler">
+				<aop:before method="validateArgs"
+							pointcut="execution (* *(..))"/>
+			</aop:aspect>
+		</aop:config>
+		
+		<bean 	id = "loggingHandler" 
+				class = "learn.spring25.aop.aspectj.LoggingHandler" />
+						
+		<bean 	id = "validationHandler"
+				class = "learn.spring25.aop.aspectj.ValidationHandler" />
+		
+		<bean 	id = "userClientDao"
+				class = "learn.spring25.WsUserDao" >
+					<property name = "userService" ref = "userService" />					
+		</bean>
+		
+		<bean 	id = "userService"
+				class = "learn.spring25.UserServiceImpl" />		
+</beans>

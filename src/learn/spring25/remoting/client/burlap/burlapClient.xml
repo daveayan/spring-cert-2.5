@@ -1,0 +1,15 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		<bean 	id = "userClientDao"
+				class = "learn.spring25.WsUserDao" >
+					<property name = "userService" ref = "burlapHttpUserService" />					
+		</bean>
+		
+		<bean	id = "burlapHttpUserService"
+				class = "org.springframework.remoting.caucho.BurlapProxyFactoryBean">
+					<property name = "serviceUrl" value = "http://localhost:8080/springcert/services/burlap/BurlapUserService" />
+					<property name = "serviceInterface" value = "learn.spring25.UserService" />
+		</bean>
+		
+</beans>

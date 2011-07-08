@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		
+		<bean 	id = "beanA"
+				class = "learn.spring25.di.propertyfiles.BeanA">
+					<property name = "name" value = "${name}" />
+					<property name = "age" value = "${age}" />
+					<property name = "active" value = "${active}" />
+		</bean>
+		
+		<bean 	class = "org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name = "location">
+				<value>learn/spring25/di/propertyfiles/config.properties</value>
+			</property>
+		</bean>
+</beans>

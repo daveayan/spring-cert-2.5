@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		
+		<bean	class="org.springframework.web.servlet.view.XmlViewResolver">
+			<property name="location">
+				<value>WEB-INF/classes/learn/spring25/web/mvc/xml/viewresolver/xml/xmlvr-views.xml</value>
+			</property>
+		</bean>
+		
+		<bean 	name = "/xmlrvrwelcome.action" 
+				class="learn.spring25.web.mvc.xml.viewresolver.xml.XmlVRWelcomeController">
+		</bean>
+</beans>

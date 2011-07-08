@@ -1,0 +1,18 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+ 	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+
+    <!-- this bean must not be lazily initialized if the exporting is to happen -->
+    <bean 	id = "exporter" 
+			class = "org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        	<property name="beans">
+            	<map>
+                	<entry key="bean:name=SampleJmxBeanWithMBean" value-ref="someJmxBeanWithMBean"/>
+	            </map>
+    	    </property>
+    </bean>    
+    <bean 	id = "someJmxBeanWithMBean" 
+			class = "learn.spring25.jmx.xml.SomeBeanForJmx">
+    </bean>    
+</beans>

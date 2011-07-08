@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		
+		<bean	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property	name="prefix" value="WEB-INF/jsp/" />
+			<property	name="suffix" value=".jsp" />
+		</bean>
+		
+		<bean	class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+			<property name="interceptors">
+				<list>
+					<ref bean="simpleHandler" />
+					<ref bean="simpleHandlerInterceptorAdapter" />
+				</list>
+			</property>
+		</bean>
+		
+		<bean 	id="simpleHandler" 
+				class="learn.spring25.web.mvc.xml.interceptor.SimpleHandler" />
+		<bean 	id="simpleHandlerInterceptorAdapter" 
+				class="learn.spring25.web.mvc.xml.interceptor.SimpleHandlerInterceptorAdapter" />		
+		
+		<bean 	class="learn.spring25.web.mvc.xml.interceptor.InterceptorWelcomeController" />		
+</beans>

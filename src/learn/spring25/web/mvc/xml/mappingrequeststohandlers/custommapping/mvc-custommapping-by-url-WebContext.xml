@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		
+		<bean	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property	name="prefix" value="WEB-INF/jsp/" />
+			<property	name="suffix" value=".jsp" />
+		</bean>
+				
+		<bean	class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+			<property name="mappings">
+				<props>
+					<prop key="/UrlHandlerWelcome.action">welcomeControllerBean</prop>
+					<prop key="/UrlHandlerListDocuments.action">listDocumentsControllerBean</prop>
+				</props>
+			</property>
+		</bean>
+				
+		<bean 	id="welcomeControllerBean"
+				class="learn.spring25.web.mvc.xml.mappingrequeststohandlers.custommapping.UrlWelcomeController" />
+							
+		<bean 	id="listDocumentsControllerBean"
+				class="learn.spring25.web.mvc.xml.mappingrequeststohandlers.custommapping.UrlListDocumentsController" />		
+</beans>

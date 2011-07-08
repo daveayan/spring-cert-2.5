@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">	
+		<bean 	id = "userService"
+				class = "learn.spring25.UserServiceImpl" />		
+				
+		<bean 	id = "loggingHandler"
+				class = "learn.spring25.aop.classicaop.LoggingHandler" />
+				
+		<bean 	id = "validationHandler"
+				class = "learn.spring25.aop.classicaop.ValidationHandler" />
+				
+		<bean 	id = "userClientDao"
+				class = "org.springframework.aop.framework.ProxyFactoryBean" >
+					<property name = "target">
+						<bean 	class = "learn.spring25.WsUserDao" >
+								<property name = "userService" ref = "userService" />					
+						</bean>
+					</property>	
+					<property name="interceptorNames">
+						<list>
+							<idref bean="loggingHandler" />
+							<idref bean="validationHandler" />
+						</list>
+					</property>				
+		</bean>
+</beans>

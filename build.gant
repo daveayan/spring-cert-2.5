@@ -1,0 +1,47 @@
+includeTool << gant.tools.Execute
+env = { variable -> return System.getenv()[variable] }
+tcHome = env('CATALINA_HOME')
+appName = 'springcert'
+
+mysql_root_username='root'
+mysql_root_password=''
+db_url = 'jdbc:mysql://localhost:3306/'
+db_driver = 'com.mysql.jdbc.Driver'
+
+libDir = "webapp/WEB-INF/lib"
+ant.path(id: 'libPath') {  
+    fileset(dir: libDir, includes: '*.jar')
+}
+compileLibDir = "compile-lib"
+ant.path(id: 'compileLibPath') {  
+    fileset(dir: compileLibDir, includes: '*.jar')
+}
+
+ant.path(id:'dataBuilderPath') {
+	path ( refid : 'compileLibPath' )
+	path ( refid : 'libPath' )
+	pathelement( location: 'webapp/WEB-INF/classes' )
+}
+
+sql = { source ->
+	ant.sql(driver:db_driver, url:db_url, userid:mysql_root_username, password:mysql_root_password, onError:"continue", autocommit:true, src:source){
+		classpath(refid : 'dataBuilderPath')
+    }
+}
+
+def createDatabase() {
+	println("Creating database")
+	sql('sql/springcert.seed.sql')
+}
+
+target('data.build': 'Building LOR Database and Repository ... ') {
+	createDatabase();
+}
+
+target(initTomcat: 'Point tomcat to java/webapp and create override prop file.') {
+    def here = new File('webapp').absolutePath
+    def filePath = tcHome+'/conf/Catalina/localhost/'+appName+'.xml'
+    new File(filePath).setText(
+        "<Context docBase=\""+here+"\"  privileged=\"false\" antiResourceLocking=\"false\" antiJARLocking=\"false\" reloadable=\"true\"/>")
+    println "   Created ${filePath} successfully."
+}

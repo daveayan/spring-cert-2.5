@@ -1,0 +1,15 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <bean 	id = "accountWebService" 
+			class = "org.springframework.remoting.jaxrpc.JaxRpcPortProxyFactoryBean">
+    			<property name="serviceInterface" value="learn.spring25.UserService"/>
+    			<property name="wsdlDocumentUrl" value="http://localhost:8080/springcert/services/userJaxRpcService?WSDL"/>
+    			<property name="namespaceUri" value="http://localhost:8080/springcert/services/userJaxRpcService"/>
+    			<property name="serviceName" value="userWebService"/>
+    			<property name="portName" value="UserPort"/>
+	</bean>
+	
+	<bean 	id = "userWebService" 
+			class = "learn.spring25.webservices.jaxrpc.server.UserServiceEndpoint" />
+</beans>

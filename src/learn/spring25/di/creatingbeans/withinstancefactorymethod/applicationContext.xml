@@ -1,0 +1,19 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		
+		<bean	id="documentFactory"
+				class="learn.spring25.di.creatingbeans.withinstancefactorymethod.DocumentCreator" />
+		
+		<bean 	id = "document"
+				factory-bean="documentFactory"
+				factory-method="createDocument">
+					<constructor-arg value = "TESTA" />
+		</bean>
+		
+		<bean 	id = "documentContent"
+				class = "learn.spring25.DocumentContent"
+				p:content="CONTENT HERE !!!">
+		</bean>
+</beans>

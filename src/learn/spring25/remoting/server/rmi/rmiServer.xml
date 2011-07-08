@@ -1,0 +1,15 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		<bean 	id = "userService"
+				class = "learn.spring25.UserServiceImpl" />
+				
+		<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+			<property name="serviceName" value="rmiUserService"/>
+			<property name="serviceInterface" value="learn.spring25.UserService" />
+			<property name="service" ref="userService" />
+			
+			<property name="registryHost" value="adave02" /> <!-- default is localhost -->
+			<property name="registryPort" value="1199" /> <!-- default is 1099 -->
+		</bean>	
+</beans>

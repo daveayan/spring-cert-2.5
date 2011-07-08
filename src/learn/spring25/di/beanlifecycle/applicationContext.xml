@@ -1,0 +1,20 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+		
+		<bean 	id = "beanImplementingInterfaces"
+				class = "learn.spring25.di.beanlifecycle.BeanImplementingInterfaces">
+		</bean>
+		
+		<bean 	id = "beanWithCallbackMethods"
+				class = "learn.spring25.di.beanlifecycle.BeanWithCallbackMethods"
+				init-method = "onStartUp"
+				destroy-method = "onShutDown">
+		</bean>
+		
+		<bean	class = "org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+		
+		<bean 	id = "beanWithAnnotations"
+				class = "learn.spring25.di.beanlifecycle.BeanWithAnnotations">
+		</bean>
+</beans>
